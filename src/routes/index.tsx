@@ -7,7 +7,7 @@ import { photos, photographs, whatsapp, instagram } from '@/lib/photographs';
 export const Route = createFileRoute('/')({
   head: () => ({ meta: [
     { title: 'Natália Silva | Fotógrafa em Nova Lima — Gestante, Newborn e Família' },
-    { name: 'description', content: 'Studio Natália Silva Fotografia em Nova Lima, MG. Mais de 15 mil histórias eternizadas. Conheça fotografias de família, feminino e eventos e converse sobre seu ensaio gestante ou newborn em Nova Lima.' },
+    { name: 'description', content: 'Studio Natália Silva Fotografia em Nova Lima, MG. Mais de 15 mil histórias eternizadas. Conheça ensaios gestante, newborn, família e feminino.' },
     { property: 'og:title', content: 'Natália Silva — Histórias eternizadas em fotografias' },
     { property: 'og:description', content: 'Fotógrafa em Nova Lima, MG. Conheça o trabalho do Studio Natália Silva Fotografia e eternize a sua história.' },
     { property: 'og:type', content: 'website' },
@@ -15,13 +15,12 @@ export const Route = createFileRoute('/')({
   ] }),
   component: Index,
 });
-const filters = ['Todos', 'Gestante', 'Newborn', 'Smash', 'Família', 'Feminino', 'Eventos'];
+const filters = ['Todos', 'Gestante', 'Newborn', 'Smash', 'Família', 'Feminino'];
 const experiences = [
   { name: 'Gestante', image: photos.maternity },
   { name: 'Newborn', image: photos.newborn },
   { name: 'Família', image: photos.children },
-  { name: 'Feminino', image: photos.veil },
-  { name: 'Eventos', image: photos.events },
+  { name: 'Feminino', image: photos.feminineEditorial },
 ];
 function Contact({ label = 'Falar com a Natália', light = false }: { label?: string; light?: boolean }) {
   return <Button variant={light ? 'light' : 'editorial'} asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a></Button>;
@@ -50,7 +49,7 @@ function Index() {
       <section id="natalia" className="about content-width"><div className="about-photo"><img src={photos.natalia} alt="Natália Silva, fotógrafa e proprietária do Studio Natália Silva Fotografia" loading="lazy" width="768" height="1024" /><span className="about-signature">Natália Silva</span></div><div className="about-copy"><span className="eyebrow">A fotógrafa · Nova Lima, MG</span><h2>Natália Silva<br /><em>Um olhar para a sua história.</em></h2><p>À frente do Studio Natália Silva Fotografia, em Nova Lima, Natália é especialista em eternizar momentos — da espera por um bebê aos encontros em família e às celebrações da vida.</p><p>Seu trabalho reúne diferentes fases e histórias, sempre com a fotografia como uma lembrança do que merece permanecer.</p><div className="about-stat"><strong>Mais de 15 mil</strong><span>Histórias eternizadas ao longo de sua trajetória.</span></div><Contact label="Conversar sobre meu ensaio" /></div></section>
       <section className="studio-experience"><span className="eyebrow">Studio Natália Silva Fotografia</span><h2>Mais do que fotografar.<br /><em>Eternizar.</em></h2><p>Um espaço pensado para que cada ensaio seja vivido com leveza, carinho e atenção aos detalhes.</p></section>
       {/* Depoimentos: inserir aqui somente avaliações reais fornecidas pela cliente. */}
-      <section className="instagram-section content-width"><div className="section-heading"><div><span className="eyebrow">@studionataliasilva.fotografia</span><h2>A história continua.</h2><p className="mt-3 text-xs text-muted-foreground">Mais histórias, bastidores e momentos eternizados.</p></div><Button variant="text" asChild><a href={instagram} target="_blank" rel="noopener noreferrer"><Instagram aria-hidden="true" />Conhecer o Instagram<ArrowUpRight aria-hidden="true" /></a></Button></div><div className="instagram-strip">{[photos.maternity, photos.bride, photos.veil, photos.children].map((src,i) => <a key={src} href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Conhecer mais fotografias no Instagram"><img src={src} alt={['Ensaio gestante','Retrato de noiva','Ensaio feminino com véu','Ensaio infantil'][i]} loading="lazy" /></a>)}</div></section>
+      <section className="instagram-section content-width"><div className="section-heading"><div><span className="eyebrow">@studionataliasilva.fotografia</span><h2>A história continua.</h2><p className="mt-3 text-xs text-muted-foreground">Mais histórias, bastidores e momentos eternizados.</p></div><Button variant="text" asChild><a href={instagram} target="_blank" rel="noopener noreferrer"><Instagram aria-hidden="true" />Conhecer o Instagram<ArrowUpRight aria-hidden="true" /></a></Button></div><div className="instagram-strip">{[photos.maternity, photos.maternityPortrait, photos.feminineEditorial, photos.children].map((src,i) => <a key={src} href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Conhecer mais fotografias no Instagram"><img src={src} alt={['Ensaio gestante em casal','Ensaio gestante individual','Ensaio feminino','Ensaio em família'][i]} loading="lazy" /></a>)}</div></section>
       <section className="final-cta"><img src={photos.maternity} alt="Casal à espera de um bebê fotografado por Natália Silva" loading="lazy" /><div className="final-content"><h2>Qual momento você<br /><em className="text-inherit">quer eternizar?</em></h2><p>Vamos transformar esse momento em uma lembrança para a vida inteira.</p><Contact label="Falar com a Natália" light /></div></section>
     </main>
     <footer><div className="footer-top"><a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Studio de fotografia</small></a><div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima - MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div></div><div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div></footer>
