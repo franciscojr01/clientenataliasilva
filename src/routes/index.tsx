@@ -39,7 +39,7 @@ function Index() {
     </header>
     <main id="inicio">
       <section className="hero" aria-label="Natália Silva Fotografia">
-        <img src={photos.family} alt="Ensaio de família fotografado por Natália Silva: um abraço entre gerações" fetchPriority="high" width="885" height="536" />
+        <picture><source media="(max-width: 760px)" srcSet={photos.babyFamily} /><img src={photos.family} alt="Ensaio de família fotografado por Natália Silva" fetchPriority="high" width="885" height="536" /></picture>
         <div className="hero-content"><span className="eyebrow">Histórias de amor. Memórias para sempre.</span><h1>Natália Silva</h1><p className="hero-tagline">Fotógrafa especialista em eternizar momentos</p><p className="hero-stat">Mais de 15 mil histórias eternizadas.</p><div className="hero-actions"><Button variant="light" asChild><a href="#portfolio">Quero conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
         <span className="hero-location">Nova Lima · Minas Gerais</span>
       </section>
