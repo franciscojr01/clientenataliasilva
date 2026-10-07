@@ -1,24 +1,58 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
+import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { photos, photographs, whatsapp, instagram } from '@/lib/photographs';
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
+  head: () => ({ meta: [
+    { title: 'Natália Silva | Fotógrafa em Nova Lima — Gestante, Newborn e Família' },
+    { name: 'description', content: 'Studio Natália Silva Fotografia em Nova Lima, MG. Mais de 15 mil histórias eternizadas. Conheça fotografias de família, feminino e eventos e converse sobre seu ensaio gestante ou newborn em Nova Lima.' },
+    { property: 'og:title', content: 'Natália Silva — Histórias eternizadas em fotografias' },
+    { property: 'og:description', content: 'Fotógrafa em Nova Lima, MG. Conheça o trabalho do Studio Natália Silva Fotografia e eternize a sua história.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ] }),
   component: Index,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const filters = ['Todos', 'Gestante', 'Newborn', 'Família', 'Feminino', 'Eventos'];
+const experiences = [
+  { name: 'Família', image: photos.babyFamily },
+  { name: 'Newborn', image: photos.newborn },
+  { name: 'Feminino', image: photos.feminine },
+  { name: 'Eventos', image: photos.graduation },
+];
+function Contact({ label = 'Falar com a Natália', light = false }: { label?: string; light?: boolean }) {
+  return <Button variant={light ? 'light' : 'editorial'} asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a></Button>;
+}
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  const [filter, setFilter] = useState('Todos');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const visible = filter === 'Todos' ? photographs : photographs.filter(photo => photo.category === filter);
+  const navigation = <><a href="#experiencias" onClick={() => setMenuOpen(false)}>Experiências</a><a href="#portfolio" onClick={() => setMenuOpen(false)}>Portfólio</a><a href="#natalia" onClick={() => setMenuOpen(false)}>A fotógrafa</a></>;
+  return <>
+    <header className="site-header">
+      <a href="#inicio" className="wordmark" aria-label="Studio Natália Silva Fotografia, início"><span>Natália Silva</span><small>Studio de fotografia</small></a>
+      <nav className="desktop-nav" aria-label="Navegação principal">{navigation}<Contact label="Vamos conversar" /></nav>
+      <Button className="mobile-menu" variant="ghost" size="icon" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button>
+      {menuOpen && <nav className="menu-panel" aria-label="Navegação móvel">{navigation}<Contact /></nav>}
+    </header>
+    <main id="inicio">
+      <section className="hero" aria-label="Natália Silva Fotografia">
+        <picture><source media="(max-width: 760px)" srcSet={photos.babyFamily} /><img src={photos.family} alt="Ensaio de família fotografado por Natália Silva" fetchPriority="high" width="885" height="536" /></picture>
+        <div className="hero-content"><span className="eyebrow">Histórias de amor. Memórias para sempre.</span><h1>Natália Silva</h1><p className="hero-tagline">Fotógrafa especialista em eternizar momentos</p><p className="hero-stat">Mais de 15 mil histórias eternizadas.</p><div className="hero-actions"><Button variant="light" asChild><a href="#portfolio">Quero conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
+        <span className="hero-location">Nova Lima · Minas Gerais</span>
+      </section>
+      <section className="introduction"><span className="eyebrow">O tempo passa. O amor permanece.</span><h2>Momentos passam.<br /><em>As fotografias ficam.</em></h2><p>Cada fase da vida carrega histórias que merecem ser lembradas. Meu propósito é transformar esses momentos em imagens que você vai querer guardar para sempre.</p></section>
+      <section id="experiencias" className="experiences content-width"><div className="section-heading"><div><span className="eyebrow">Para cada capítulo da sua vida</span><h2>Experiências fotográficas</h2></div><p>Diferentes momentos.<br />O mesmo cuidado em eternizar.</p></div><div className="experience-grid">{experiences.map(item => <a className="experience-item" key={item.name} href="#portfolio" onClick={() => setFilter(item.name)}><div className="experience-photo"><img src={item.image} alt={`Fotografia de ${item.name.toLowerCase()} por Natália Silva`} loading="lazy" /></div><div className="experience-caption"><h3>{item.name}</h3><ArrowUpRight aria-hidden="true" /></div></a>)}</div><div className="other-experiences"><p>Outros capítulos para eternizar</p><a href={whatsapp} target="_blank" rel="noopener noreferrer">Gestante ↗</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">Smash ↗</a></div></section>
+      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><span className="eyebrow">Um olhar. Muitas histórias.</span><h2>Memórias que <em>permanecem.</em></h2></div><p>Um pouco das histórias que passaram pelas minhas lentes.</p></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</Button>)}</div>{visible.length ? <div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''}`}>{visible.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.src}><div className="gallery-photo"><img src={photo.src} alt={`${photo.label} — fotografia de ${photo.category.toLowerCase()} por Natália Silva`} loading="lazy" /></div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div> : <div className="empty-gallery"><h3>Ensaio gestante em Nova Lima</h3><p>Converse com a Natália para conhecer as fotografias e os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
+      <section id="natalia" className="about content-width"><div className="about-photo"><img src={photos.natalia} alt="Natália Silva, fotógrafa, segurando uma lente diante do rosto" loading="lazy" width="768" height="768" /></div><div className="about-copy"><span className="eyebrow">O olhar por trás das memórias</span><h2>Por trás de<br /><em>cada fotografia</em></h2><p>Natália Silva é fotógrafa e encontrou na fotografia uma forma de transformar momentos importantes em memórias que permanecem.</p><div className="about-stat"><strong>15 mil</strong><span>Mais de 15 mil histórias eternizadas.</span></div><Contact label="Vamos eternizar a sua história" /></div></section>
+      <section className="studio-experience"><span className="eyebrow">Studio Natália Silva Fotografia</span><h2>Mais do que fotografar.<br /><em>Eternizar.</em></h2><p>Um espaço pensado para que cada ensaio seja vivido com leveza, carinho e atenção aos detalhes.</p></section>
+      {/* Depoimentos: inserir aqui somente avaliações reais fornecidas pela cliente. */}
+      <section className="instagram-section content-width"><div className="section-heading"><div><span className="eyebrow">@studionataliasilva.fotografia</span><h2>A história continua.</h2><p className="mt-3 text-xs text-muted-foreground">Mais histórias, bastidores e momentos eternizados.</p></div><Button variant="text" asChild><a href={instagram} target="_blank" rel="noopener noreferrer"><Instagram aria-hidden="true" />Conhecer o Instagram<ArrowUpRight aria-hidden="true" /></a></Button></div><div className="instagram-strip">{[photos.portrait, photos.family, photos.graduation, photos.babyFamily].map((src,i) => <a key={src} href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Conhecer mais fotografias no Instagram"><img src={src} alt={['Ensaio feminino','Ensaio de família','Ensaio de formatura','Retrato de família com bebê'][i]} loading="lazy" /></a>)}</div></section>
+      <section className="final-cta"><img src={photos.family} alt="Família unida em um abraço no Studio Natália Silva Fotografia" loading="lazy" /><div className="final-content"><h2>Qual história você<br /><em className="text-inherit">quer eternizar?</em></h2><p>Vamos transformar esse momento em uma lembrança para a vida inteira.</p><Contact light /></div></section>
+    </main>
+    <footer><div className="footer-top"><a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Studio de fotografia</small></a><div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima - MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div></div><div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div></footer>
+    <div className="floating-contact"><Button variant="floating" size="icon" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Natália pelo WhatsApp" title="Falar com a Natália pelo WhatsApp"><MessageCircle aria-hidden="true" /></a></Button></div>
+  </>;
 }
