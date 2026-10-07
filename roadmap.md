@@ -1,4 +1,8 @@
 # Prévia Studio Natália Silva
+- [ ] Substituir fotos de banco pelas novas fotos reais, corrigindo orientação e categorias.
+- [ ] Refinar a abertura conforme a direção visual escolhida.
+- [ ] Valorizar apresentação da Natália e confirmar tempo de experiência.
+- [ ] Verificar fotos, filtros, contato e organização final.
 - [x] Criar site editorial com fotografias reais e links para WhatsApp e Instagram.
 - [x] Incorporar a foto enviada da fotógrafa na apresentação.
 - [x] Verificar galeria, filtros e navegação em telas grandes e pequenas.
