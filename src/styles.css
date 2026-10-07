@@ -206,10 +206,12 @@ footer { padding:50px 5% 25px; }
  .final-content>a, .final-content>button { margin-inline:auto; }
  footer { padding:38px 22px 20px; text-align:center; }
  .footer-top { grid-template-columns:1fr; justify-items:center; gap:22px; padding-bottom:26px; }
- footer .wordmark { align-items:center; }
- .footer-info { width:100%; align-items:center; gap:10px; font-size:11px; line-height:1.55; text-align:center; }
+ footer .wordmark { align-items:center; margin-inline:auto; text-align:center; }
+ .footer-info { width:100%; align-items:center; justify-content:center; gap:10px; font-size:11px; line-height:1.55; text-align:center; }
+ .footer-info>* { display:block; width:100%; text-align:center; }
  .footer-info a { overflow-wrap:anywhere; }
- .footer-bottom { flex-direction:column; align-items:center; gap:9px; padding:18px 0 54px; font-size:10px; line-height:1.6; text-align:center; }
+ .footer-bottom { width:100%; flex-direction:column; align-items:center; gap:9px; padding:18px 0 54px; font-size:10px; line-height:1.6; text-align:center; }
+ .footer-bottom>* { display:block; width:100%; text-align:center; }
  .floating-contact { right:17px; bottom:17px; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
