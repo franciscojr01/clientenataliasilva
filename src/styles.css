@@ -188,10 +188,12 @@ footer { padding:50px 5% 25px; }
  .final-content { left:25px; right:25px; bottom:40px; }
  .final-content h2 { font-size:41px; line-height:1.05; max-width:290px; }
  .final-content p { line-height:1.8; max-width:260px; }
- footer { padding:40px 24px 25px; }
- .footer-top { grid-template-columns:1fr; gap:25px; }
- .footer-info { align-items:flex-start; }
- .footer-bottom { flex-direction:column; gap:8px; padding-right:48px; }
+ footer { padding:38px 22px 20px; }
+ .footer-top { grid-template-columns:1fr; gap:22px; padding-bottom:26px; }
+ footer .wordmark { align-items:flex-start; }
+ .footer-info { align-items:flex-start; gap:10px; font-size:11px; line-height:1.55; }
+ .footer-info a { overflow-wrap:anywhere; }
+ .footer-bottom { flex-direction:column; align-items:flex-start; gap:9px; padding:18px 0 54px; font-size:10px; line-height:1.6; }
  .floating-contact { right:17px; bottom:17px; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
