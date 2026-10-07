@@ -1,6 +1,6 @@
 export const photos = {
   maternity: '/images/gestante-casal.webp',
-  newborn: '/images/familia-recem-nascida.jpg',
+  newborn: '/images/ensaio-smash-murilo-1-ano.png',
   children: '/images/familia-com-criancas.webp',
   maternityPortrait: '/images/gestante-retrato.jpg',
   maternityGroup: '/images/gestantes-em-grupo.webp',
@@ -13,7 +13,7 @@ export const whatsapp = 'https://wa.me/5531991458058?text=Ol%C3%A1%2C%20Nat%C3%A
 export const instagram = 'https://www.instagram.com/studionataliasilva.fotografia/';
 
 export const photographs = [
-  { src: photos.newborn, category: 'Newborn', label: 'O começo de uma vida inteira de amor', shape: 'tall' },
+  { src: photos.newborn, category: 'Newborn', label: 'Um primeiro ano cheio de descobertas', shape: 'tall' },
   { src: photos.maternity, category: 'Gestante', label: 'A espera de um novo capítulo', shape: 'tall' },
   { src: photos.maternityPortrait, category: 'Gestante', label: 'A beleza de cada fase da espera', shape: 'tall' },
   { src: photos.femininePortrait, category: 'Feminino', label: 'Um retrato para celebrar quem você é', shape: 'tall' },
