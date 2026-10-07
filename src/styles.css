@@ -186,7 +186,9 @@ footer { padding:50px 5% 25px; }
  .gallery-caption { display:block; font-size:10px; line-height:1.7; text-wrap:pretty; }
  .gallery-caption span { display:block; }
  .gallery-caption span:last-child { margin-top:2px; font-size:8px; }
- .instagram-section .section-heading>.text-button { justify-self:center; }
+ .instagram-section .section-heading { display:flex; flex-direction:column; align-items:center; text-align:center; }
+ .instagram-section .section-heading>div { width:100%; text-align:center; }
+ .instagram-section .section-heading>.text-button { align-self:center; }
  .about { grid-template-columns:1fr; gap:35px; padding-top:70px; padding-bottom:70px; }
  .about-copy { min-width:0; text-align:center; }
  .about-copy h2 { font-size:clamp(34px,9vw,40px); line-height:1.12; text-wrap:balance; }
@@ -202,12 +204,12 @@ footer { padding:50px 5% 25px; }
  .final-content h2 { font-size:clamp(36px,10vw,41px); line-height:1.08; max-width:16ch; margin-inline:auto; text-wrap:balance; }
  .final-content p { line-height:1.8; max-width:34ch; margin:12px auto 25px; text-wrap:pretty; }
  .final-content>a, .final-content>button { margin-inline:auto; }
- footer { padding:38px 22px 20px; }
- .footer-top { grid-template-columns:1fr; gap:22px; padding-bottom:26px; }
- footer .wordmark { align-items:flex-start; }
- .footer-info { align-items:flex-start; gap:10px; font-size:11px; line-height:1.55; }
+ footer { padding:38px 22px 20px; text-align:center; }
+ .footer-top { grid-template-columns:1fr; justify-items:center; gap:22px; padding-bottom:26px; }
+ footer .wordmark { align-items:center; }
+ .footer-info { width:100%; align-items:center; gap:10px; font-size:11px; line-height:1.55; text-align:center; }
  .footer-info a { overflow-wrap:anywhere; }
- .footer-bottom { flex-direction:column; align-items:flex-start; gap:9px; padding:18px 0 54px; font-size:10px; line-height:1.6; }
+ .footer-bottom { flex-direction:column; align-items:center; gap:9px; padding:18px 0 54px; font-size:10px; line-height:1.6; text-align:center; }
  .floating-contact { right:17px; bottom:17px; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
