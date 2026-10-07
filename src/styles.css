@@ -204,13 +204,13 @@ footer { padding:50px 5% 25px; }
  .final-content h2 { font-size:clamp(36px,10vw,41px); line-height:1.08; max-width:16ch; margin-inline:auto; text-wrap:balance; }
  .final-content p { line-height:1.8; max-width:34ch; margin:12px auto 25px; text-wrap:pretty; }
  .final-content>a, .final-content>button { margin-inline:auto; }
- footer { padding:38px 22px 20px; text-align:center; }
- .footer-top { grid-template-columns:1fr; justify-items:center; gap:22px; padding-bottom:26px; }
+ footer { padding:28px 22px 16px; text-align:center; }
+ .footer-top { grid-template-columns:1fr; justify-items:center; gap:16px; padding-bottom:18px; }
  footer .wordmark { align-items:center; margin-inline:auto; text-align:center; }
- .footer-info { width:max-content; max-width:100%; align-items:flex-start; gap:7px; margin-inline:auto; font-size:10px; line-height:1.5; text-align:left; }
+ .footer-info { width:max-content; max-width:100%; align-items:flex-start; gap:5px; margin-inline:auto; font-size:10px; line-height:1.45; text-align:left; }
  .footer-info>* { display:block; width:auto; max-width:100%; text-align:left; }
  .footer-info a { overflow-wrap:anywhere; }
- .footer-bottom { width:max-content; max-width:100%; flex-direction:column; align-items:flex-start; gap:5px; margin-inline:auto; padding:18px 0 54px; font-size:9px; line-height:1.5; text-align:left; }
+ .footer-bottom { width:max-content; max-width:100%; flex-direction:column; align-items:flex-start; gap:4px; margin-inline:auto; padding:14px 0 24px; font-size:9px; line-height:1.5; text-align:left; }
  .footer-bottom>* { display:block; width:auto; max-width:100%; text-align:left; }
  .floating-contact { right:17px; bottom:17px; }
 }
