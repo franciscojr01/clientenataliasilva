@@ -148,9 +148,10 @@ footer { padding:50px 5% 25px; }
  .site-header { height:80px; padding:0 22px; }
  .wordmark span { font-size:26px; }
  .desktop-nav { display:none; } .mobile-menu { display:block; }
- .hero { display:block; height:auto; min-height:650px; max-height:none; margin:0; background-image:linear-gradient(180deg, oklch(.986 .005 83 / .94) 0%, oklch(.986 .005 83 / .88) 47%, oklch(.986 .005 83 / .52) 100%), url('/images/gestante-casal.webp'); background-position:center, center 28%; background-size:cover; }
- .hero>picture { display:none; }
- .hero-content { position:relative; inset:auto; left:auto; right:auto; top:auto; bottom:auto; z-index:2; max-width:490px; padding:42px 24px 45px; }
+ .hero { display:flex; flex-direction:column; height:auto; min-height:0; max-height:none; margin:0; }
+ .hero-content { position:relative; inset:auto; left:auto; right:auto; top:auto; bottom:auto; z-index:1; order:0; width:100%; max-width:490px; padding:32px 24px 26px; }
+ .hero>picture { position:relative; inset:auto; order:1; width:100%; aspect-ratio:3/4; }
+ .hero img { object-fit:cover; object-position:center 26%; }
  .hero .eyebrow { font-size:8px; letter-spacing:0; }
  .hero h1 { font-size:52px; }
  .hero-tagline { font-size:23px; max-width:265px; }
