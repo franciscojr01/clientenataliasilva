@@ -39,8 +39,8 @@ function Index() {
     </header>
     <main id="inicio">
       <section className="hero" aria-label="Natália Silva Fotografia">
-        <picture><img src={photos.maternity} alt="Casal em ensaio gestante por Natália Silva" fetchPriority="high" width="1440" height="1920" /></picture>
         <div className="hero-content"><span className="eyebrow">GESTANTE • NEWBORN • FAMÍLIA • FEMININO</span><h1>Natália Silva</h1><p className="hero-tagline">Fotógrafa especialista em eternizar momentos</p><p className="hero-stat">Mais de 15 mil histórias eternizadas.</p><div className="hero-actions"><Button variant="editorial" asChild><a href="#portfolio">Conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
+        <picture><img src={photos.maternity} alt="Casal em ensaio gestante por Natália Silva" fetchPriority="high" width="1440" height="1920" /></picture>
         <span className="hero-location">Nova Lima · Minas Gerais</span>
       </section>
       <section className="introduction"><span className="eyebrow">O tempo passa. O amor permanece.</span><h2>Momentos passam.<br /><em>As fotografias ficam.</em></h2><p>Cada fase da vida carrega histórias que merecem ser lembradas. Meu propósito é transformar esses momentos em imagens que você vai querer guardar para sempre.</p></section>
