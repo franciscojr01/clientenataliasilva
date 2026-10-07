@@ -9,6 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        editorial: "editorial-button",
+        light: "light-button",
+        text: "text-button",
+        filter: "filter-button",
+        floating: "floating-button",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
