@@ -98,9 +98,6 @@
 .experience-caption { margin-top:16px; display:flex; justify-content:space-between; align-items:center; }
 .experience-caption h3 { font-size:26px; }
 .experience-caption svg { width:15px; height:15px; color:var(--muted-foreground); }
-.other-experiences { border-top:1px solid var(--border); margin-top:32px; padding-top:20px; display:flex; justify-content:space-between; align-items:center; gap:20px; }
-.other-experiences p { font-size:11px; color:var(--muted-foreground); }
-.other-experiences a { font:24px var(--font-display); color:var(--foreground); }
 .portfolio { background:var(--secondary); padding:85px 0 95px; }
 .filters { display:flex; flex-wrap:wrap; margin:0 -15px 35px; gap:4px; }
 .editorial-grid { columns:2; column-gap:28px; }
@@ -152,9 +149,9 @@ footer { padding:50px 5% 25px; }
  .wordmark span { font-size:26px; }
  .desktop-nav { display:none; } .mobile-menu { display:block; }
  .hero { display:flex; flex-direction:column; height:auto; min-height:0; max-height:none; margin:0; }
- .hero>picture { position:relative; inset:auto; width:100%; aspect-ratio:4/5; order:1; }
- .hero img { object-fit:cover; object-position:center 32%; }
- .hero-content { position:relative; inset:auto; left:auto; right:auto; top:auto; bottom:auto; max-width:none; padding:30px 24px 36px; order:2; }
+ .hero>picture { position:relative; inset:auto; width:100%; aspect-ratio:3/4; order:2; }
+ .hero img { object-fit:cover; object-position:center 26%; }
+ .hero-content { position:relative; inset:auto; left:auto; right:auto; top:auto; bottom:auto; max-width:none; padding:32px 24px 26px; order:1; }
  .hero .eyebrow { font-size:8px; letter-spacing:0; }
  .hero h1 { font-size:52px; }
  .hero-tagline { font-size:23px; max-width:265px; }
@@ -172,7 +169,6 @@ footer { padding:50px 5% 25px; }
  .experience-grid .experience-item:nth-child(1),
  .experience-grid .experience-item:nth-child(4) { grid-column:span 1; }
  .experience-caption h3 { font-size:25px; }
- .other-experiences { flex-wrap:wrap; } .other-experiences p { flex-basis:100%; }
  .experiences { padding-bottom:65px; }
  .portfolio { padding:65px 0; }
  .filters { gap:0; margin-bottom:25px; }
