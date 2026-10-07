@@ -1,4 +1,5 @@
 import maternityAsset from '@/assets/gestante-casal.jpg.asset.json';
+import maternityUploaded from '@/assets/uploads/6261.png';
 import newbornAsset from '@/assets/newborn-pais.jpg.asset.json';
 import childrenAsset from '@/assets/infantil-carro.jpg.asset.json';
 import brideAsset from '@/assets/noiva-retrato.jpg.asset.json';
@@ -23,7 +24,7 @@ export const instagram = 'https://www.instagram.com/studionataliasilva.fotografi
 
 export const photographs = [
   { src: photos.newborn, category: 'Newborn', label: 'O começo de uma vida inteira de amor', shape: 'wide' },
-  { src: photos.maternity, category: 'Gestante', label: 'A espera de um novo capítulo', shape: 'tall' },
+  { src: maternityUploaded, category: 'Gestante', label: 'A espera de um novo capítulo', shape: 'tall' },
   { src: photos.bride, category: 'Eventos', label: 'A delicadeza de um dia especial', shape: 'tall' },
   { src: photos.veil, category: 'Feminino', label: 'A beleza em cada fase da vida', shape: 'tall' },
   { src: photos.children, category: 'Família', label: 'Pequenos momentos, grandes memórias', shape: 'wide' },
