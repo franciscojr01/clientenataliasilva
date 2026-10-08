@@ -96,7 +96,7 @@
 .experiences { padding-bottom:50px; }
 .experience-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
 .experience-photo { aspect-ratio:2/3; overflow:hidden; background:var(--secondary); }
-.experience-photo img { object-fit:contain; }
+.experience-photo img { display:block; width:100%; height:100%; object-fit:cover; object-position:center 35%; }
 .experience-item img { transition:transform .7s; }
 .experience-item:hover img { transform:scale(1.035); }
 .experience-item { color:var(--foreground); }
