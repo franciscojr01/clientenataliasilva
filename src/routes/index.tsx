@@ -91,7 +91,7 @@ function Index() {
     </header>
     <main id="inicio">
       <section className="hero" aria-label="Natália Silva Fotografia">
-        <div className="hero-content"><span className="eyebrow">CASAMENTOS • FAMÍLIA • RETRATOS • EVENTOS</span><h1>Natália Silva</h1><p className="hero-tagline">Fotógrafa especialista em eternizar momentos</p><p className="hero-stat">Mais de 15 mil histórias eternizadas.</p><div className="hero-actions"><Button variant="light" asChild><a href="#portfolio">Conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
+        <div className="hero-content"><span className="eyebrow">GESTANTE • NEWBORN • FAMÍLIA • RETRATOS</span><h1>Natália Silva</h1><p className="hero-tagline">Cada fase da vida merece ser lembrada <em>para sempre.</em></p><p className="hero-stat">Mais de 15 mil histórias eternizadas em Nova Lima, MG.</p><div className="hero-actions"><Button variant="light" asChild><a href="#portfolio">Conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
         <picture><img src={photos.studio} alt="Natália Silva Fotografia — conheça os ensaios do estúdio" fetchPriority="high" width="1170" height="1560" /></picture>
         <span className="hero-location">Nova Lima · Minas Gerais</span>
       </section>
