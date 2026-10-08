@@ -102,7 +102,7 @@ function Index() {
             <Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Fale com a Natália<ArrowUpRight aria-hidden="true" /></a></Button>
           </div>
         </div>
-        <picture className="hero-art"><img src={photos.studio} alt="Natália Silva, fotógrafa do estúdio em Nova Lima" fetchPriority="high" width="1170" height="1560" /></picture>
+        <picture className="hero-art"><img src={photos.heroImage} alt="Ensaio externo de casal entre as árvores" fetchPriority="high" width="432" height="566" /></picture>
         <span className="hero-location">Fotografia com afeto, em Nova Lima.</span>
       </section>
 
