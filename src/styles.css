@@ -156,7 +156,7 @@
 .instagram-strip img { transition:transform .7s; }
 .instagram-strip a:hover img { transform:scale(1.03); }
 .final-cta { position:relative; height:480px; margin:0 22px; color:var(--photo-ink); overflow:hidden; }
-.final-cta>img { object-position:center 28%; }
+.final-cta>img { object-fit:contain; object-position:center center; background:var(--secondary); }
 .final-cta:after { content:''; position:absolute; inset:0; background:var(--photo-overlay); }
 .final-content { position:absolute; z-index:1; bottom:55px; left:6%; right:6%; }
 .final-content h2 { font-size:53px; }
@@ -230,7 +230,7 @@ footer { padding:50px 5% 25px; }
  .instagram-section { padding:35px 16px; }
  .instagram-strip { grid-template-columns:repeat(2,1fr); gap:10px; }
  .final-cta { height:510px; margin:0 10px; }
- .final-cta>img { object-position:52% center; }
+ .final-cta>img { object-fit:contain; object-position:center center; background:var(--secondary); }
  .final-content { left:24px; right:24px; bottom:40px; text-align:center; }
  .final-content h2 { font-size:36px; line-height:1.08; max-width:16ch; margin-inline:auto; text-wrap:balance; }
  .final-content p { line-height:1.8; max-width:34ch; margin:12px auto 25px; text-wrap:pretty; }
