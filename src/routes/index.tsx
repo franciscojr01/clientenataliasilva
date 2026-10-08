@@ -1,41 +1,39 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Menu, MessageCircle, X } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { photos, photographs, whatsapp, instagram, type Photograph } from '@/lib/photographs';
 
 export const Route = createFileRoute('/')({
-  head: () => ({
-    meta: [
-      { title: 'Natália Silva | Fotografia com afeto em Nova Lima' },
-      { name: 'description', content: 'Conheça o trabalho do Studio Natália Silva Fotografia: casamentos, família, gestante, newborn, retratos e eventos em Nova Lima, MG.' },
-      { property: 'og:title', content: 'Natália Silva — Fotografia com afeto' },
-      { property: 'og:description', content: 'Histórias reais. Memórias para sempre. Conheça o trabalho do Studio Natália Silva Fotografia.' },
-      { property: 'og:type', content: 'website' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () => ({ meta: [
+    { title: 'Natália Silva | Fotógrafa em Nova Lima — Gestante, Newborn e Família' },
+    { name: 'description', content: 'Studio Natália Silva Fotografia em Nova Lima, MG. Conheça os ensaios de casamento, família, gestante, newborn, retrato e eventos.' },
+    { property: 'og:title', content: 'Natália Silva — Histórias eternizadas em fotografias' },
+    { property: 'og:description', content: 'Fotógrafa em Nova Lima, MG. Conheça o trabalho do Studio Natália Silva Fotografia e eternize a sua história.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ] }),
   component: Index,
 });
-
 const filters = ['Todos', ...new Set(photographs.map(photo => photo.category))];
-
-function Contact({ label = 'Fale com a Natália' }: { label?: string }) {
-  return (
-    <Button variant="editorial" asChild>
-      <a href={whatsapp} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a>
-    </Button>
-  );
+const experiences = [
+  { name: 'Gestante', image: photos.maternity },
+  { name: 'Newborn', image: photos.newborn },
+  { name: 'Família', image: photos.children },
+  { name: 'Feminino', image: photos.feminineEditorial },
+  { name: 'Smash the cake', image: photos.smash },
+  { name: 'Festas e eventos', image: '/images/portfolio/02-festas-eventos.webp' },
+];
+function Contact({ label = 'Falar com a Natália', light = false }: { label?: string; light?: boolean }) {
+  return <Button variant={light ? 'light' : 'editorial'} asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a></Button>;
 }
-
 function touchDistance(touches: TouchList) {
   const first = touches[0];
   const second = touches[1];
   if (!first || !second) return 0;
   return Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY);
 }
-
 function Index() {
   const [filter, setFilter] = useState('Todos');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,8 +41,11 @@ function Index() {
   const [lightboxScale, setLightboxScale] = useState(1);
   const pinchStart = useRef<{ distance: number; scale: number } | null>(null);
 
-  const galleryPhotographs = filter === 'Todos' ? photographs : photographs.filter(photo => photo.category === filter);
-  const lightboxPhotographs = galleryPhotographs;
+  const visible = filter === 'Todos' ? photographs : photographs.filter(photo => photo.category === filter);
+
+  const galleryPhotographs = visible;
+  const lightboxPhotographs = galleryPhotographs.filter(photo => Boolean(photo.src));
+
   const columns = [0, 1, 2].map(column => galleryPhotographs.filter((_, index) => index % 3 === column));
   const selectedIndex = selectedPhotograph
     ? lightboxPhotographs.findIndex(photo => photo.id === selectedPhotograph.id)
@@ -79,93 +80,31 @@ function Index() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedPhotograph, selectedIndex, lightboxPhotographs]);
 
-  const navigation = <><a href="#portfolio" onClick={() => setMenuOpen(false)}>Ensaios</a><a href="#portfolio" onClick={() => setMenuOpen(false)}>Portfólio</a><a href="#natalia" onClick={() => setMenuOpen(false)}>O estúdio</a></>;
-
+  const navigation = <><a href="#experiencias" onClick={() => setMenuOpen(false)}>Experiências</a><a href="#portfolio" onClick={() => setMenuOpen(false)}>Portfólio</a><a href="#natalia" onClick={() => setMenuOpen(false)}>A fotógrafa</a></>;
   return <>
     <header className="site-header">
-      <a href="#inicio" className="wordmark" aria-label="Studio Natália Silva Fotografia, início">
-        <span>Natália Silva</span><small>Fotografia com afeto</small>
-      </a>
+      <a href="#inicio" className="wordmark" aria-label="Studio Natália Silva Fotografia, início"><span>Natália Silva</span><small>Studio de fotografia</small></a>
       <nav className="desktop-nav" aria-label="Navegação principal">{navigation}<Contact label="Vamos conversar" /></nav>
       <Button className="mobile-menu" variant="ghost" size="icon" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</Button>
       {menuOpen && <nav className="menu-panel" aria-label="Navegação móvel">{navigation}<Contact /></nav>}
     </header>
-
     <main id="inicio">
       <section className="hero" aria-label="Natália Silva Fotografia">
-        <div className="hero-content">
-          <span className="eyebrow">ESTÚDIO DE FOTOGRAFIA · NOVA LIMA, MG</span>
-          <h1>Histórias reais.<br /><em>Memórias para sempre.</em></h1>
-          <p className="hero-tagline">Cada fase da vida merece ser lembrada com beleza, cuidado e verdade.</p>
-          <div className="hero-actions">
-            <Button variant="editorial" asChild><a href="#portfolio">Explore os ensaios<ArrowRight aria-hidden="true" /></a></Button>
-            <Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Fale com a Natália<ArrowUpRight aria-hidden="true" /></a></Button>
-          </div>
-        </div>
-        <picture className="hero-art"><img src={photos.studio} alt="Natália Silva, fotógrafa do estúdio em Nova Lima" fetchPriority="high" width="1170" height="1560" /></picture>
-        <span className="hero-location">Fotografia com afeto, em Nova Lima.</span>
+        <div className="hero-content"><span className="eyebrow">CASAMENTOS • FAMÍLIA • RETRATOS • EVENTOS</span><h1>Natália Silva</h1><p className="hero-tagline">Fotógrafa especialista em eternizar momentos</p><p className="hero-stat">Mais de 15 mil histórias eternizadas.</p><div className="hero-actions"><Button variant="light" asChild><a href="#portfolio">Conhecer o trabalho<ArrowRight aria-hidden="true" /></a></Button><Button variant="text" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">Falar com a Natália<ArrowUpRight aria-hidden="true" /></a></Button></div></div>
+        <picture><img src={photos.studio} alt="Natália Silva Fotografia — conheça os ensaios do estúdio" fetchPriority="high" width="1170" height="1560" /></picture>
+        <span className="hero-location">Nova Lima · Minas Gerais</span>
       </section>
-
-      <section className="introduction">
-        <span className="eyebrow">O tempo passa. O amor permanece.</span>
-        <h2>Um olhar atento para<br /><em>o que importa.</em></h2>
-        <p>Da espera por um bebê às celebrações em família: fotografias feitas para trazer de volta a emoção de cada momento.</p>
-      </section>
-
-      <section className="portfolio" id="portfolio">
-        <div className="content-width">
-          <div className="section-heading">
-            <div><span className="eyebrow">PORTFÓLIO · STUDIO NATÁLIA SILVA</span><h2>Histórias em <em>cada detalhe.</em></h2></div>
-            <p>Escolha um ensaio e explore o trabalho de perto.</p>
-          </div>
-          <div className="filters" role="group" aria-label="Filtrar portfólio">
-            {filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</Button>)}
-          </div>
-          <div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''}`}>
-            {columns.map((column, index) => (
-              <div className="gallery-column" key={index}>
-                {column.map(photo => (
-                  <figure className="gallery-item" key={photo.id}>
-                    <button type="button" className="gallery-photo-trigger" aria-label={`Ampliar ${photo.category.toLowerCase()}`} onClick={() => { setSelectedPhotograph(photo); setLightboxScale(1); }}>
-                      <img src={photo.src} alt={photo.alt} loading="lazy" width={photo.width} height={photo.height} />
-                    </button>
-                    <figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption>
-                  </figure>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="natalia" className="about content-width">
-        <div className="about-copy">
-          <span className="eyebrow">A FOTÓGRAFA · NOVA LIMA, MG</span>
-          <h2>Natália Silva<br /><em>Um olhar para a sua história.</em></h2>
-          <p>À frente do Studio Natália Silva Fotografia, Natália registra com sensibilidade as fases, encontros e celebrações que fazem parte da vida.</p>
-          <div className="about-stat"><strong>Mais de 15 mil</strong><span>Histórias eternizadas ao longo de sua trajetória.</span></div>
-          <Contact label="Converse sobre seu ensaio" />
-        </div>
-        <div className="about-note"><span>Fotografar é guardar</span><strong>um pedacinho<br />do que se sente.</strong><span>Studio Natália Silva · Nova Lima</span></div>
-      </section>
-
-      <section className="final-cta">
-        <span className="eyebrow">STUDIO NATÁLIA SILVA FOTOGRAFIA</span>
-        <h2>Vamos eternizar<br /><em>o seu momento?</em></h2>
-        <p>Conte sua ideia para a Natália e encontre o ensaio ideal para a sua história.</p>
-        <Contact />
-      </section>
+      <section className="introduction"><span className="eyebrow">O tempo passa. O amor permanece.</span><h2>Momentos passam.<br /><em>As fotografias ficam.</em></h2><p>Cada fase da vida carrega histórias que merecem ser lembradas. Meu propósito é transformar esses momentos em imagens que você vai querer guardar para sempre.</p></section>
+      <section id="experiencias" className="experiences content-width"><div className="section-heading"><div><span className="eyebrow">Um portfólio feito de histórias reais</span><h2>Encontre seu momento</h2></div><p>Uma seleção especial dos trabalhos do estúdio.</p></div><div className="experience-grid">{experiences.map(item => <a className="experience-item" key={item.name} href="#portfolio" onClick={event => { event.preventDefault(); setFilter(item.name); document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' }); }}><div className="experience-photo"><img src={item.image} alt={`Fotografia de ${item.name.toLowerCase()} por Natália Silva`} loading="lazy" /></div><div className="experience-caption"><h3>{item.name}</h3><ArrowUpRight aria-hidden="true" /></div></a>)}</div></section>
+      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><span className="eyebrow">19 histórias · 19 ensaios</span><h2>Memórias que <em>permanecem.</em></h2></div><Button variant="text" asChild><a href="#experiencias">Voltar às experiências</a></Button></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}</Button>)}</div>{galleryPhotographs.length ? <div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''}`}>{columns.map((column, index) => <div className="gallery-column" key={index}>{column.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.id}><div className="gallery-photo"><button type="button" className="gallery-photo-trigger" aria-label={`Ampliar ${photo.category.toLowerCase()}`} onClick={() => { setSelectedPhotograph(photo); setLightboxScale(1); }}><img src={photo.src} alt={photo.alt} loading="lazy" width={photo.width} height={photo.height} /></button></div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div>)}</div> : <div className="empty-gallery"><h3>{filter} em Nova Lima</h3><p>Converse com a Natália para conhecer os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
+      <section id="natalia" className="about content-width"><div className="about-photo"><img src={photos.studio} alt="Natália Silva, fotógrafa e proprietária do Studio Natália Silva Fotografia" loading="lazy" width="1170" height="1560" /></div><div className="about-copy"><span className="eyebrow">A fotógrafa · Nova Lima, MG</span><h2>Natália Silva<br /><em>Um olhar para a sua história.</em></h2><p>À frente do Studio Natália Silva Fotografia, em Nova Lima, Natália é especialista em eternizar momentos — da espera por um bebê aos encontros em família e às celebrações da vida.</p><div className="about-stat"><strong>Mais de 15 mil</strong><span>Histórias eternizadas ao longo de sua trajetória.</span></div><Contact label="Conversar sobre meu ensaio" /></div></section>
+      <section className="studio-experience"><span className="eyebrow">Studio Natália Silva Fotografia</span><h2>Mais do que fotografar.<br /><em>Eternizar.</em></h2><p>Um espaço pensado para que cada ensaio seja vivido com leveza, carinho e atenção aos detalhes.</p></section>
+      {/* Depoimentos: inserir aqui somente avaliações reais fornecidas pela cliente. */}
+      <section className="instagram-section content-width"><div className="section-heading"><div><span className="eyebrow">@studionataliasilva.fotografia</span><h2>A história continua.</h2><p className="mt-3 text-xs text-muted-foreground">Mais histórias, bastidores e momentos eternizados.</p></div><Button variant="text" asChild><a href={instagram} target="_blank" rel="noopener noreferrer"><Instagram aria-hidden="true" />Conhecer o Instagram<ArrowUpRight aria-hidden="true" /></a></Button></div><div className="instagram-strip">{[photos.maternity, photos.maternityPortrait, photos.feminineEditorial, photos.children].map((src,i) => <a key={src} href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Conhecer mais fotografias no Instagram"><img src={src} alt={['Ensaio gestante em casal','Ensaio gestante individual','Ensaio feminino','Ensaio em família'][i]} loading="lazy" /></a>)}</div></section>
+      <section className="final-cta"><img src={photos.maternity} alt="Casal à espera de um bebê fotografado por Natália Silva" loading="lazy" /><div className="final-content"><h2>Qual momento você<br /><em className="text-inherit">quer eternizar?</em></h2><p>Vamos transformar esse momento em uma lembrança para a vida inteira.</p><Contact label="Falar com a Natália" light /></div></section>
     </main>
-
-    <footer>
-      <div className="footer-top">
-        <a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Fotografia com afeto</small></a>
-        <div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima · MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div>
-      </div>
-      <div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div>
-    </footer>
+    <footer><div className="footer-top"><a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Studio de fotografia</small></a><div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima - MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div></div><div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div></footer>
     <div className="floating-contact"><Button variant="floating" size="icon" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Natália pelo WhatsApp" title="Falar com a Natália pelo WhatsApp"><MessageCircle aria-hidden="true" /></a></Button></div>
-
     <Dialog open={Boolean(selectedPhotograph)} onOpenChange={open => { if (!open) closePhotograph(); }}>
       <DialogContent className="lightbox-dialog max-w-[min(96vw,1100px)] border-0 bg-background p-4 sm:p-6">
         <DialogTitle className="sr-only">{selectedPhotograph?.category} — fotografia ampliada</DialogTitle>
@@ -183,12 +122,21 @@ function Index() {
               if (!pinch || event.touches.length !== 2) return;
               event.preventDefault();
               const distance = touchDistance(event.touches);
-              if (pinch.distance > 0 && distance > 0) setLightboxScale(Math.min(4, Math.max(1, pinch.scale * (distance / pinch.distance))));
+              if (pinch.distance > 0 && distance > 0) {
+                setLightboxScale(Math.min(4, Math.max(1, pinch.scale * (distance / pinch.distance))));
+              }
             }}
-            onTouchEnd={event => { if (event.touches.length < 2) pinchStart.current = null; }}
+            onTouchEnd={event => {
+              if (event.touches.length < 2) pinchStart.current = null;
+            }}
             onTouchCancel={() => { pinchStart.current = null; }}
           >
-            <img src={selectedPhotograph.src} alt={selectedPhotograph.alt} className="lightbox-image" style={{ transform: `scale(${lightboxScale})` }} />
+            <img
+              src={selectedPhotograph.src}
+              alt={selectedPhotograph.alt ?? selectedPhotograph.label}
+              className="lightbox-image"
+              style={{ transform: `scale(${lightboxScale})` }}
+            />
           </div>
           <div className="lightbox-toolbar">
             <div className="lightbox-navigation">
