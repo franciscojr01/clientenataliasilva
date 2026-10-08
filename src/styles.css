@@ -109,9 +109,12 @@
 .gallery-column { min-width:0; }
 .gallery-item { display:inline-block; width:100%; margin:0 0 20px; min-width:0; break-inside:avoid; vertical-align:top; }
 .gallery-photo { width:100%; overflow:hidden; background:transparent; }
-.gallery-photo img { height:auto; object-fit:contain; }
+.gallery-photo img { width:100%; height:auto; object-fit:contain; }
 .gallery-placeholder { width:100%; display:flex; align-items:center; justify-content:center; padding:16px; background:var(--secondary); border:1px solid var(--border); color:var(--muted-foreground); font-size:10px; text-align:center; }
 .gallery-caption { display:flex; justify-content:space-between; gap:12px; margin-top:8px; font-size:11px; color:var(--muted-foreground); }
+.editorial-grid.expanded { display:block; columns:3; column-gap:18px; }
+.editorial-grid.expanded .gallery-column { display:contents; }
+.editorial-grid.expanded .gallery-item { display:block; break-inside:avoid; }
 .gallery-caption span:first-child { display:none; }
 .gallery-caption span:last-child { font-size:9px; text-transform:uppercase; }
 .editorial-grid.filtered .gallery-item { grid-column:span 1; }
@@ -190,6 +193,7 @@ footer { padding:50px 5% 25px; }
  .filters { justify-content:flex-start; gap:0; margin:0 -8px 20px; }
  .filter-button { padding:0 8px; font-size:11px; height:40px; }
  .editorial-grid { display:block; columns:2; column-gap:10px; }
+ .editorial-grid.expanded { columns:1; column-gap:0; }
  .gallery-column { display:contents; }
  .gallery-item { margin-bottom:14px; }
  .gallery-caption { display:block; font-size:10px; line-height:1.7; text-wrap:pretty; }
@@ -223,6 +227,6 @@ footer { padding:50px 5% 25px; }
  .footer-bottom>* { display:block; width:auto; max-width:100%; text-align:left; }
  .floating-contact { right:17px; bottom:17px; }
 }
-@media(min-width:761px) and (max-width:1000px) { .hero h1 { font-size:46px; } .hero-actions { gap:14px; flex-wrap:wrap; } .experience-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(min-width:761px) and (max-width:1000px) { .hero h1 { font-size:46px; } .hero-actions { gap:14px; flex-wrap:wrap; } .experience-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } .editorial-grid.expanded { columns:2; } }
 @media(max-width:360px) { .hero-actions { gap:10px; } .hero-actions .editorial-button { padding:0 12px; } .hero-actions .text-button { font-size:9px; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
