@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
-import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { photos, photographs, whatsapp, instagram, type Photograph } from '@/lib/photographs';
@@ -40,12 +40,19 @@ const experiences = [
 function Contact({ label = 'Falar com a Natália', light = false }: { label?: string; light?: boolean }) {
   return <Button variant={light ? 'light' : 'editorial'} asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer">{label}<ArrowUpRight aria-hidden="true" /></a></Button>;
 }
+function touchDistance(touches: TouchList) {
+  const first = touches[0];
+  const second = touches[1];
+  if (!first || !second) return 0;
+  return Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY);
+}
 function Index() {
   const [filter, setFilter] = useState('Todos');
   const [showAllPhotographs, setShowAllPhotographs] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedPhotograph, setSelectedPhotograph] = useState<Photograph | null>(null);
-  const [lightboxZoom, setLightboxZoom] = useState(1);
+  const [lightboxScale, setLightboxScale] = useState(1);
+  const pinchStart = useRef<{ distance: number; scale: number } | null>(null);
 
   const visible = filter === 'Todos'
     ? (showAllPhotographs ? photographs : photographs.filter(photo => featuredPhotographIds.has(photo.id)))
@@ -61,14 +68,16 @@ function Index() {
 
   const closePhotograph = () => {
     setSelectedPhotograph(null);
-    setLightboxZoom(1);
+    setLightboxScale(1);
+    pinchStart.current = null;
   };
 
   const movePhotograph = (direction: -1 | 1) => {
     if (lightboxPhotographs.length < 2 || selectedIndex < 0) return;
     const nextIndex = (selectedIndex + direction + lightboxPhotographs.length) % lightboxPhotographs.length;
     setSelectedPhotograph(lightboxPhotographs[nextIndex]);
-    setLightboxZoom(1);
+    setLightboxScale(1);
+    pinchStart.current = null;
   };
 
   useEffect(() => {
@@ -80,14 +89,6 @@ function Index() {
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
         movePhotograph(1);
-      } else if (event.key === '+' || event.key === '=') {
-        event.preventDefault();
-        setLightboxZoom(value => Math.min(3, value + 0.25));
-      } else if (event.key === '-') {
-        event.preventDefault();
-        setLightboxZoom(value => Math.max(1, value - 0.25));
-      } else if (event.key === '0') {
-        setLightboxZoom(1);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -110,7 +111,7 @@ function Index() {
       </section>
       <section className="introduction"><span className="eyebrow">O tempo passa. O amor permanece.</span><h2>Momentos passam.<br /><em>As fotografias ficam.</em></h2><p>Cada fase da vida carrega histórias que merecem ser lembradas. Meu propósito é transformar esses momentos em imagens que você vai querer guardar para sempre.</p></section>
       <section id="experiencias" className="experiences content-width"><div className="section-heading"><div><span className="eyebrow">Para cada capítulo da sua vida</span><h2>Experiências fotográficas</h2></div><p>Diferentes momentos.<br />O mesmo cuidado em eternizar.</p></div><div className="experience-grid">{experiences.map(item => <a className="experience-item" key={item.name} href="#portfolio" onClick={event => { event.preventDefault(); setFilter(item.name); document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' }); }}><div className="experience-photo">{item.placeholder ? <div className="gallery-placeholder" role="img" aria-label={item.placeholder}>{item.placeholder}</div> : <img src={item.image} alt={`Fotografia de ${item.name.toLowerCase()} por Natália Silva`} loading="lazy" />}</div><div className="experience-caption"><h3>{item.name}</h3><ArrowUpRight aria-hidden="true" /></div></a>)}</div></section>
-      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><h2>Memórias que <em>permanecem.</em></h2></div><Button variant="text" asChild><a href="#experiencias">Voltar às experiências</a></Button></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => { setFilter(item); if (item === 'Todos') setShowAllPhotographs(false); }}>{item}</Button>)}</div>{galleryPhotographs.length ? <><div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''} ${showAllPhotographs && filter === 'Todos' ? 'expanded' : ''}`}>{columns.map((column, index) => <div className="gallery-column" key={index}>{column.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.id}><div className="gallery-photo">{photo.src ? <button type="button" className="gallery-photo-trigger" aria-label={`Ampliar ${photo.category.toLowerCase()}`} onClick={() => { setSelectedPhotograph(photo); setLightboxZoom(1); }}><img src={photo.src} alt={photo.alt ?? photo.label} loading="lazy" width={photo.width} height={photo.height} /></button> : <div className="gallery-placeholder" role="img" aria-label={photo.label} style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>{photo.label}</div>}</div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div>)}</div>{filter === 'Todos' && !showAllPhotographs && <Button className="mx-auto flex w-fit" variant="text" onClick={() => setShowAllPhotographs(true)}>Ver todas as fotos</Button>}</> : <div className="empty-gallery"><h3>{filter} em Nova Lima</h3><p>Converse com a Natália para conhecer as fotografias e os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
+      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><h2>Memórias que <em>permanecem.</em></h2></div><Button variant="text" asChild><a href="#experiencias">Voltar às experiências</a></Button></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => { setFilter(item); if (item === 'Todos') setShowAllPhotographs(false); }}>{item}</Button>)}</div>{galleryPhotographs.length ? <><div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''} ${showAllPhotographs && filter === 'Todos' ? 'expanded' : ''}`}>{columns.map((column, index) => <div className="gallery-column" key={index}>{column.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.id}><div className="gallery-photo">{photo.src ? <button type="button" className="gallery-photo-trigger" aria-label={`Ampliar ${photo.category.toLowerCase()}`} onClick={() => { setSelectedPhotograph(photo); setLightboxScale(1); }}><img src={photo.src} alt={photo.alt ?? photo.label} loading="lazy" width={photo.width} height={photo.height} /></button> : <div className="gallery-placeholder" role="img" aria-label={photo.label} style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>{photo.label}</div>}</div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div>)}</div>{filter === 'Todos' && !showAllPhotographs && <Button className="mx-auto flex w-fit" variant="text" onClick={() => setShowAllPhotographs(true)}>Ver todas as fotos</Button>}</> : <div className="empty-gallery"><h3>{filter} em Nova Lima</h3><p>Converse com a Natália para conhecer as fotografias e os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
       <section id="natalia" className="about content-width"><div className="about-photo"><img src={photos.natalia} alt="Natália Silva, fotógrafa e proprietária do Studio Natália Silva Fotografia" loading="lazy" width="3072" height="4096" /></div><div className="about-copy"><span className="eyebrow">A fotógrafa · Nova Lima, MG</span><h2>Natália Silva<br /><em>Um olhar para a sua história.</em></h2><p>À frente do Studio Natália Silva Fotografia, em Nova Lima, Natália é especialista em eternizar momentos — da espera por um bebê aos encontros em família e às celebrações da vida.</p><div className="about-stat"><strong>Mais de 15 mil</strong><span>Histórias eternizadas ao longo de sua trajetória.</span></div><Contact label="Conversar sobre meu ensaio" /></div></section>
       <section className="studio-experience"><span className="eyebrow">Studio Natália Silva Fotografia</span><h2>Mais do que fotografar.<br /><em>Eternizar.</em></h2><p>Um espaço pensado para que cada ensaio seja vivido com leveza, carinho e atenção aos detalhes.</p></section>
       {/* Depoimentos: inserir aqui somente avaliações reais fornecidas pela cliente. */}
@@ -122,14 +123,34 @@ function Index() {
     <Dialog open={Boolean(selectedPhotograph)} onOpenChange={open => { if (!open) closePhotograph(); }}>
       <DialogContent className="lightbox-dialog max-w-[min(96vw,1100px)] border-0 bg-background p-4 sm:p-6">
         <DialogTitle className="sr-only">{selectedPhotograph?.category} — fotografia ampliada</DialogTitle>
-        <DialogDescription className="sr-only">Use os controles para ampliar a imagem e as setas para navegar entre as fotos.</DialogDescription>
+        <DialogDescription className="sr-only">No celular, aproxime ou afaste dois dedos sobre a foto para ajustar a visualização. Use as setas para navegar entre as fotos.</DialogDescription>
         {selectedPhotograph && <div className="lightbox-content">
-          <div className="lightbox-image-viewport">
+          <div
+            className="lightbox-image-viewport"
+            onTouchStart={event => {
+              if (event.touches.length === 2 && window.matchMedia('(max-width: 760px) and (pointer: coarse)').matches) {
+                pinchStart.current = { distance: touchDistance(event.touches), scale: lightboxScale };
+              }
+            }}
+            onTouchMove={event => {
+              const pinch = pinchStart.current;
+              if (!pinch || event.touches.length !== 2) return;
+              event.preventDefault();
+              const distance = touchDistance(event.touches);
+              if (pinch.distance > 0 && distance > 0) {
+                setLightboxScale(Math.min(4, Math.max(1, pinch.scale * (distance / pinch.distance))));
+              }
+            }}
+            onTouchEnd={event => {
+              if (event.touches.length < 2) pinchStart.current = null;
+            }}
+            onTouchCancel={() => { pinchStart.current = null; }}
+          >
             <img
               src={selectedPhotograph.src}
               alt={selectedPhotograph.alt ?? selectedPhotograph.label}
               className="lightbox-image"
-              style={{ transform: `scale(${lightboxZoom})` }}
+              style={{ transform: `scale(${lightboxScale})` }}
             />
           </div>
           <div className="lightbox-toolbar">
@@ -139,14 +160,8 @@ function Index() {
               <Button variant="ghost" size="icon" aria-label="Próxima foto" onClick={() => movePhotograph(1)} disabled={lightboxPhotographs.length < 2}><ChevronRight aria-hidden="true" /></Button>
             </div>
             <span className="lightbox-category">{selectedPhotograph.category}</span>
-            <div className="lightbox-zoom-controls">
-              <Button variant="ghost" size="icon" aria-label="Diminuir zoom" onClick={() => setLightboxZoom(value => Math.max(1, value - 0.25))} disabled={lightboxZoom <= 1}><ZoomOut aria-hidden="true" /></Button>
-              <span>{Math.round(lightboxZoom * 100)}%</span>
-              <Button variant="ghost" size="icon" aria-label="Aumentar zoom" onClick={() => setLightboxZoom(value => Math.min(3, value + 0.25))} disabled={lightboxZoom >= 3}><ZoomIn aria-hidden="true" /></Button>
-              <Button variant="ghost" size="icon" aria-label="Redefinir zoom" onClick={() => setLightboxZoom(1)} disabled={lightboxZoom === 1}><RotateCcw aria-hidden="true" /></Button>
-            </div>
           </div>
-          <p className="lightbox-hint">Use as setas do teclado para navegar e + / − para ajustar o zoom.</p>
+          <p className="lightbox-hint">No celular, use dois dedos para ampliar ou reduzir a foto.</p>
         </div>}
       </DialogContent>
     </Dialog>

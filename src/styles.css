@@ -125,13 +125,13 @@
 .editorial-grid.filtered .gallery-item.wide { grid-column:span 2; }
 .lightbox-dialog { gap:12px; }
 .lightbox-content { display:grid; gap:14px; }
-.lightbox-image-viewport { display:flex; align-items:center; justify-content:center; max-height:76vh; min-height:180px; overflow:auto; background:#1c1a18; }
-.lightbox-image { display:block; max-width:100%; max-height:76vh; width:auto; height:auto; object-fit:contain; transform-origin:center; transition:transform .15s ease-out; }
+.lightbox-image-viewport { display:flex; align-items:center; justify-content:center; max-height:76vh; min-height:180px; overflow:auto; overscroll-behavior:contain; touch-action:pan-x pan-y; background:#1c1a18; }
+.lightbox-image { display:block; max-width:100%; max-height:76vh; width:auto; height:auto; object-fit:contain; transform-origin:center; user-select:none; -webkit-user-drag:none; cursor:default; }
 .lightbox-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:4px; }
-.lightbox-navigation, .lightbox-zoom-controls { display:flex; align-items:center; gap:4px; }
-.lightbox-navigation span, .lightbox-zoom-controls span { min-width:38px; color:var(--muted-foreground); font-size:11px; text-align:center; font-variant-numeric:tabular-nums; }
+.lightbox-navigation { display:flex; align-items:center; gap:4px; }
+.lightbox-navigation span { min-width:38px; color:var(--muted-foreground); font-size:11px; text-align:center; font-variant-numeric:tabular-nums; }
 .lightbox-category { color:var(--muted-foreground); font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-.lightbox-hint { color:var(--muted-foreground); font-size:10px; text-align:center; }
+.lightbox-hint { display:none; color:var(--muted-foreground); font-size:10px; text-align:center; }
 .empty-gallery { padding:55px 0; border-top:1px solid var(--border); }
 .empty-gallery h3 { font-size:32px; }
 .empty-gallery p { color:var(--muted-foreground); margin:12px 0 20px; font-size:12px; }
@@ -213,7 +213,7 @@ footer { padding:50px 5% 25px; }
  .lightbox-toolbar { flex-wrap:wrap; justify-content:center; }
  .lightbox-category { order:-1; width:100%; text-align:center; }
  .lightbox-image-viewport { min-height:140px; }
- .lightbox-hint { display:none; }
+ .lightbox-hint { display:block; }
  .gallery-caption { display:block; font-size:10px; line-height:1.7; text-wrap:pretty; }
  .gallery-caption span:first-child { display:none; }
  .gallery-caption span:last-child { margin-top:2px; font-size:8px; }
