@@ -77,41 +77,5 @@ function Index() {
     </main>
     <footer><div className="footer-top"><a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Studio de fotografia</small></a><div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima - MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div></div><div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div></footer>
     <div className="floating-contact"><Button variant="floating" size="icon" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Natália pelo WhatsApp" title="Falar com a Natália pelo WhatsApp"><MessageCircle aria-hidden="true" /></a></Button></div>
-    <Dialog open={Boolean(selectedPhotograph)} onOpenChange={open => { if (!open) closePhotograph(); }}>
-      <DialogContent className="max-w-[92vw] border-border bg-background p-4 sm:max-w-[900px]">
-        <DialogTitle className="sr-only">{selectedPhotograph?.label}</DialogTitle>
-        <DialogDescription className="sr-only">Visualização ampliada da fotografia</DialogDescription>
-        {selectedPhotograph && <div className="flex flex-col items-center gap-4">
-          <div
-            className="max-h-[75vh] max-w-full overflow-auto overscroll-contain"
-            onWheel={event => {
-              event.preventDefault();
-              setLightboxZoom(value => Math.min(3, Math.max(1, value - event.deltaY * 0.001)));
-            }}
-            onTouchStart={event => {
-              if (event.touches.length === 2) pinchStartDistance.current = distanceBetweenTouches(event.touches);
-            }}
-            onTouchMove={event => {
-              if (event.touches.length === 2 && pinchStartDistance.current) {
-                const distance = distanceBetweenTouches(event.touches);
-                if (distance > 0) {
-                  setLightboxZoom(value => Math.min(3, Math.max(1, value * (distance / pinchStartDistance.current!))));
-                  pinchStartDistance.current = distance;
-                }
-              }
-            }}
-            onTouchEnd={() => { pinchStartDistance.current = null; }}
-          >
-            <div className="gallery-placeholder origin-center transition-transform" role="img" aria-label={selectedPhotograph.label} style={{ aspectRatio: `${selectedPhotograph.width} / ${selectedPhotograph.height}`, width: 'min(78vw, 780px)', transform: `scale(${lightboxZoom})` }}>
-              {selectedPhotograph.label}
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" aria-label="Reduzir zoom" onClick={() => setLightboxZoom(value => Math.max(1, value - 0.25))}><ZoomOut aria-hidden="true" /></Button>
-            <Button variant="ghost" size="icon" aria-label="Aumentar zoom" onClick={() => setLightboxZoom(value => Math.min(3, value + 0.25))}><ZoomIn aria-hidden="true" /></Button>
-          </div>
-        </div>}
-      </DialogContent>
-    </Dialog>
   </>;
 }
