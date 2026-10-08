@@ -2,7 +2,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { photos, photographs, whatsapp, instagram } from '@/lib/photographs';
 
 export const Route = createFileRoute('/')({
@@ -44,7 +43,6 @@ function Index() {
   const [filter, setFilter] = useState('Todos');
   const [showAllPhotographs, setShowAllPhotographs] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const isMobile = useIsMobile();
 
   const visible = filter === 'Todos'
     ? (showAllPhotographs ? photographs : photographs.filter(photo => featuredPhotographIds.has(photo.id)))
