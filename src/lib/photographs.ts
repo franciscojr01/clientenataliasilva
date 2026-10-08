@@ -1,13 +1,16 @@
+const portfolio = '/images/portfolio';
+
 export const photos = {
-  maternity: '/images/gestante-casal.webp',
-  newborn: '/images/ensaio-smash-murilo-1-ano.png',
-  smash: '/images/ensaio-smash-murilo-1-ano.png',
-  children: '/images/familia-com-criancas.webp',
-  maternityPortrait: '/images/gestante-retrato.jpg',
-  maternityGroup: '/images/gestantes-em-grupo.webp',
-  natalia: '/images/retrato-feminino.jpg',
-  femininePortrait: '/images/retrato-feminino.jpg',
-  feminineEditorial: '/images/ensaio-feminino.webp',
+  maternity: `${portfolio}/18-gestante.webp`,
+  newborn: `${portfolio}/08-newborn.webp`,
+  smash: `${portfolio}/09-smash-cake.webp`,
+  children: `${portfolio}/13-familia.webp`,
+  maternityPortrait: `${portfolio}/18-gestante.webp`,
+  maternityGroup: `${portfolio}/12-casal.webp`,
+  natalia: `${portfolio}/19-studio-natalia.webp`,
+  femininePortrait: `${portfolio}/15-feminino.webp`,
+  feminineEditorial: `${portfolio}/15-feminino.webp`,
+  studio: `${portfolio}/19-studio-natalia.webp`,
 };
 
 export const whatsapp = 'https://wa.me/5531991458058?text=Ol%C3%A1%2C%20Nat%C3%A1lia!%20Gostaria%20de%20conhecer%20seus%20ensaios.';
@@ -20,50 +23,30 @@ export interface Photograph {
   shape: string;
   width: number;
   height: number;
-  src?: string;
-  alt?: string;
+  src: string;
+  alt: string;
 }
 
+const studioPortrait = { width: 1170, height: 1560 };
+
 export const photographs: Photograph[] = [
-  { id: 'gestante-1', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1920, src: photos.maternity, alt: 'Ensaio gestante em casal por Natália Silva' },
-  { id: 'gestante-2', category: 'Gestante', label: 'Foto — Gestante', shape: 'wide', width: 1440, height: 960, src: photos.maternityPortrait, alt: 'Ensaio gestante em retrato por Natália Silva' },
-  { id: 'gestante-3', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1800, src: photos.maternityGroup, alt: 'Ensaio de gestantes em grupo por Natália Silva' },
-  { id: 'gestante-4', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'gestante-5', category: 'Gestante', label: 'Foto — Gestante', shape: 'wide', width: 1440, height: 960 },
-  { id: 'gestante-6', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1800 },
-
-  { id: 'newborn-1', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'newborn-2', category: 'Newborn', label: 'Foto — Newborn', shape: 'wide', width: 1440, height: 960 },
-  { id: 'newborn-3', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1800 },
-  { id: 'newborn-4', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'newborn-5', category: 'Newborn', label: 'Foto — Newborn', shape: 'wide', width: 1440, height: 960 },
-  { id: 'newborn-6', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1800 },
-
-  { id: 'familia-1', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1920, src: photos.children, alt: 'Ensaio de família por Natália Silva' },
-  { id: 'familia-2', category: 'Família', label: 'Foto — Família', shape: 'wide', width: 1440, height: 960 },
-  { id: 'familia-3', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1800 },
-  { id: 'familia-4', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'familia-5', category: 'Família', label: 'Foto — Família', shape: 'wide', width: 1440, height: 960 },
-  { id: 'familia-6', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1800 },
-
-  { id: 'feminino-1', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1920, src: photos.feminineEditorial, alt: 'Ensaio feminino por Natália Silva' },
-  { id: 'feminino-2', category: 'Feminino', label: 'Foto — Feminino', shape: 'wide', width: 1440, height: 960 },
-  { id: 'feminino-3', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1800 },
-  { id: 'feminino-4', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'feminino-5', category: 'Feminino', label: 'Foto — Feminino', shape: 'wide', width: 1440, height: 960 },
-  { id: 'feminino-6', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1800 },
-
-  { id: 'smash-1', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1920, src: photos.smash, alt: 'Ensaio smash de aniversário por Natália Silva' },
-  { id: 'smash-2', category: 'Smash', label: 'Foto — Smash', shape: 'wide', width: 1440, height: 960 },
-  { id: 'smash-3', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1800 },
-  { id: 'smash-4', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'smash-5', category: 'Smash', label: 'Foto — Smash', shape: 'wide', width: 1440, height: 960 },
-  { id: 'smash-6', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1800 },
-
-  { id: 'eventos-1', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'eventos-2', category: 'Eventos', label: 'Foto — Eventos', shape: 'wide', width: 1440, height: 960 },
-  { id: 'eventos-3', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1800 },
-  { id: 'eventos-4', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1920 },
-  { id: 'eventos-5', category: 'Eventos', label: 'Foto — Eventos', shape: 'wide', width: 1440, height: 960 },
-  { id: 'eventos-6', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'externos', category: 'Externos', label: 'Ensaio externo', shape: 'tall', ...studioPortrait, src: `${portfolio}/01-externos.webp`, alt: 'Ensaio externo de casal, gestante e retrato feminino' },
+  { id: 'festas-eventos', category: 'Festas e eventos', label: 'Festas e eventos', shape: 'tall', ...studioPortrait, src: `${portfolio}/02-festas-eventos.webp`, alt: 'Cobertura fotográfica de festa de debutante' },
+  { id: 'casamento', category: 'Casamento', label: 'Casamento', shape: 'tall', ...studioPortrait, src: `${portfolio}/03-casamento.webp`, alt: 'Fotografia de casamento durante a cerimônia' },
+  { id: 'batizado', category: 'Batizado', label: 'Batizado', shape: 'tall', ...studioPortrait, src: `${portfolio}/04-batizado.webp`, alt: 'Registro de batizado em família' },
+  { id: 'casamento-civil', category: 'Casamento civil', label: 'Casamento civil', shape: 'tall', ...studioPortrait, src: `${portfolio}/05-casamento-civil.webp`, alt: 'Ensaio de casamento civil' },
+  { id: 'revelacao', category: 'Revelação', label: 'Revelação', shape: 'tall', ...studioPortrait, src: `${portfolio}/06-revelacao.webp`, alt: 'Ensaio de revelação do bebê' },
+  { id: 'aniversario', category: 'Aniversário', label: 'Aniversário', shape: 'tall', ...studioPortrait, src: `${portfolio}/07-aniversario.webp`, alt: 'Ensaio de aniversário em estúdio' },
+  { id: 'newborn', category: 'Newborn', label: 'Newborn', shape: 'tall', ...studioPortrait, src: `${portfolio}/08-newborn.webp`, alt: 'Ensaio newborn com recém-nascido' },
+  { id: 'smash-cake', category: 'Smash the cake', label: 'Smash the cake', shape: 'tall', ...studioPortrait, src: `${portfolio}/09-smash-cake.webp`, alt: 'Ensaio smash the cake de bebê' },
+  { id: 'infantil-juvenil', category: 'Infantil e juvenil', label: 'Infantil e juvenil', shape: 'tall', ...studioPortrait, src: `${portfolio}/10-infantil-juvenil.webp`, alt: 'Retrato infantil e juvenil em estúdio' },
+  { id: 'mesversario', category: 'Mesversário', label: 'Mesversário', shape: 'tall', ...studioPortrait, src: `${portfolio}/11-mesversario.webp`, alt: 'Ensaio de mesversário de bebê' },
+  { id: 'casal', category: 'Casal', label: 'Casal', shape: 'tall', ...studioPortrait, src: `${portfolio}/12-casal.webp`, alt: 'Ensaio fotográfico de casal' },
+  { id: 'familia', category: 'Família', label: 'Família', shape: 'tall', ...studioPortrait, src: `${portfolio}/13-familia.webp`, alt: 'Ensaio fotográfico em família' },
+  { id: 'masculino', category: 'Masculino', label: 'Masculino', shape: 'tall', ...studioPortrait, src: `${portfolio}/14-masculino.webp`, alt: 'Retrato masculino em estúdio' },
+  { id: 'feminino', category: 'Feminino', label: 'Feminino', shape: 'tall', ...studioPortrait, src: `${portfolio}/15-feminino.webp`, alt: 'Ensaio feminino em estúdio' },
+  { id: 'formatura', category: 'Formatura', label: 'Formatura', shape: 'tall', ...studioPortrait, src: `${portfolio}/16-formatura.webp`, alt: 'Retrato de formatura' },
+  { id: 'corporativo', category: 'Corporativo', label: 'Corporativo', shape: 'tall', ...studioPortrait, src: `${portfolio}/17-corporativo.webp`, alt: 'Retrato profissional corporativo' },
+  { id: 'gestante', category: 'Gestante', label: 'Gestante', shape: 'tall', ...studioPortrait, src: `${portfolio}/18-gestante.webp`, alt: 'Ensaio fotográfico gestante' },
+  { id: 'studio', category: 'Studio', label: 'Studio Natália Silva', shape: 'tall', ...studioPortrait, src: `${portfolio}/19-studio-natalia.webp`, alt: 'Natália Silva, fotógrafa do estúdio' },
 ];

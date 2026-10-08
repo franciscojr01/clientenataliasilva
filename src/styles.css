@@ -71,18 +71,18 @@
 .floating-button { border-radius:50%; width:52px; height:52px; color:var(--primary-foreground); background:var(--contact); box-shadow:var(--float-shadow); }
 .floating-button:hover { background:var(--foreground); }
 .floating-contact { position:fixed; right:25px; bottom:25px; z-index:30; }
-.hero { position:relative; height:660px; min-height:0; overflow:hidden; color:var(--photo-ink); margin:0; background:var(--hero-background); }
-.hero>picture { position:absolute; inset:0; width:100%; display:block; overflow:hidden; }
-.hero img { object-fit:contain; object-position:88% center; }
-.hero::after { content:''; position:absolute; inset:0; z-index:1; background:var(--hero-overlay); }
-.hero-content { position:absolute; left:4%; bottom:80px; z-index:2; width:44%; max-width:470px; }
+.hero { position:relative; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:5%; height:660px; min-height:0; overflow:hidden; color:var(--foreground); margin:0; padding:0 6%; background:var(--secondary); }
+.hero>picture { position:relative; inset:auto; grid-column:2; grid-row:1; width:100%; height:100%; display:block; overflow:hidden; }
+.hero img { object-fit:contain; object-position:center; }
+.hero::after { display:none; }
+.hero-content { position:relative; inset:auto; grid-column:1; grid-row:1; z-index:2; width:auto; max-width:470px; }
 .eyebrow { display:block; font-size:9px; line-height:1.6; text-transform:uppercase; letter-spacing:0; color:var(--muted-foreground); }
-.hero .eyebrow { margin-bottom:18px; color:var(--photo-ink); }
+.hero .eyebrow { margin-bottom:18px; color:var(--muted-foreground); }
 .hero h1 { font-family:var(--font-sans); font-weight:500; font-size:60px; line-height:1.08; }
 .hero-tagline { font:400 21px/1.45 var(--font-sans); margin-top:18px; max-width:340px; }
-.hero-stat { font-size:12px; color:var(--photo-ink); margin-top:16px; }
+.hero-stat { font-size:12px; color:var(--muted-foreground); margin-top:16px; }
 .hero-actions { display:flex; align-items:center; gap:24px; margin-top:26px; }
-.hero-location { position:absolute; left:4%; bottom:28px; z-index:2; font-size:10px; text-transform:uppercase; letter-spacing:0; }
+.hero-location { position:absolute; left:6%; bottom:28px; z-index:2; font-size:10px; text-transform:uppercase; letter-spacing:0; color:var(--muted-foreground); }
 .content-width { max-width:1440px; margin:auto; padding:0 4%; }
 .introduction { text-align:center; max-width:700px; margin:auto; padding:60px 24px; }
 .introduction .eyebrow { display:none; }
@@ -174,12 +174,11 @@ footer { padding:50px 5% 25px; }
  .site-header { height:68px; padding:0 18px; }
  .wordmark span { font-size:26px; }
  .desktop-nav { display:none; } .mobile-menu { display:block; }
- .hero { display:block; height:600px; height:min(620px,calc(100svh - 100px)); min-height:540px; max-height:none; margin:0; }
- .hero>picture { position:absolute; inset:0; width:100%; aspect-ratio:auto; }
- .hero img { height:82%; object-fit:cover; object-position:center top; }
- .hero::after { background:var(--hero-mobile-overlay); }
- .hero-content { position:absolute; inset:auto 20px 26px; z-index:2; width:auto; max-width:490px; padding:0; }
- .hero .eyebrow { display:none; }
+ .hero { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(260px, .9fr) auto; gap:2px; height:auto; min-height:720px; max-height:none; margin:0; padding:16px 18px 36px; }
+ .hero>picture { position:relative; inset:auto; grid-column:1; grid-row:1; width:100%; height:100%; aspect-ratio:auto; }
+ .hero img { height:100%; object-fit:contain; object-position:center; }
+ .hero-content { position:relative; inset:auto; grid-column:1; grid-row:2; z-index:2; width:auto; max-width:490px; padding:0; margin:0 auto; text-align:center; }
+ .hero .eyebrow { display:block; margin-bottom:8px; }
  .hero h1 { font-size:36px; }
  .hero-tagline { font-size:16px; max-width:300px; margin-top:10px; }
  .hero-stat { font-size:11px; margin-top:10px; }
@@ -203,7 +202,7 @@ footer { padding:50px 5% 25px; }
  .experience-caption svg { flex:none; }
  .experiences { padding-bottom:35px; }
  .portfolio { padding:30px 0; }
- .filters { justify-content:flex-start; gap:0; margin:0 -8px 20px; }
+ .filters { justify-content:flex-start; flex-wrap:nowrap; overflow-x:auto; gap:0; margin:0 -16px 20px; padding:0 16px 8px; scrollbar-width:thin; }
  .filter-button { padding:0 8px; font-size:11px; height:40px; }
  .editorial-grid { display:block; columns:2; column-gap:10px; }
  .editorial-grid.expanded { display:block; columns:1; column-gap:0; }
