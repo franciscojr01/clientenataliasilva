@@ -12,3 +12,4 @@
 - Keep the photography preview as a single editorial page with shared semantic styles and Button variants; this preserves a coherent visual identity.
 - Import CDN asset pointers for real uploaded photographs and keep gallery metadata separate from presentation; this prevents binary repository growth and incorrect category assignments.
 - Use direct WhatsApp conversation links, not a messaging API; this preview requires no account integration or message storage.
+- Render the portfolio in proportional masonry columns with intrinsic image dimensions and unframed category captions; this avoids image cropping and layout shifts.
