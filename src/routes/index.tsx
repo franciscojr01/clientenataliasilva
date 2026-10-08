@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowUpRight, ArrowRight, Menu, X, Instagram, MessageCircle, ZoomIn, ZoomOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { photos, photographs, whatsapp, instagram } from '@/lib/photographs';
 
 export const Route = createFileRoute('/')({
@@ -43,10 +45,37 @@ function Index() {
   const [filter, setFilter] = useState('Todos');
   const [showAllPhotographs, setShowAllPhotographs] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedPhotograph, setSelectedPhotograph] = useState<(typeof photographs)[number] | null>(null);
+  const [lightboxZoom, setLightboxZoom] = useState(1);
+  const isMobile = useIsMobile();
+  const pinchStartDistance = useRef<number | null>(null);
+
   const visible = filter === 'Todos'
     ? (showAllPhotographs ? photographs : photographs.filter(photo => featuredPhotographIds.has(photo.id)))
     : photographs.filter(photo => photo.category === filter);
-  const columns = [0, 1, 2].map(column => visible.filter((_, index) => index % 3 === column));
+
+  const galleryPhotographs = filter === 'Todos' && showAllPhotographs && isMobile
+    ? visible.slice(0, 20)
+    : visible;
+
+  const columns = [0, 1, 2].map(column => galleryPhotographs.filter((_, index) => index % 3 === column));
+
+  const openPhotograph = (photograph: (typeof photographs)[number]) => {
+    setSelectedPhotograph(photograph);
+    setLightboxZoom(1);
+  };
+
+  const closePhotograph = () => {
+    setSelectedPhotograph(null);
+    setLightboxZoom(1);
+  };
+
+  const distanceBetweenTouches = (touches: TouchList) => {
+    const first = touches.item(0);
+    const second = touches.item(1);
+    if (!first || !second) return 0;
+    return Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY);
+  };
   const navigation = <><a href="#experiencias" onClick={() => setMenuOpen(false)}>Experiências</a><a href="#portfolio" onClick={() => setMenuOpen(false)}>Portfólio</a><a href="#natalia" onClick={() => setMenuOpen(false)}>A fotógrafa</a></>;
   return <>
     <header className="site-header">
@@ -63,7 +92,7 @@ function Index() {
       </section>
       <section className="introduction"><span className="eyebrow">O tempo passa. O amor permanece.</span><h2>Momentos passam.<br /><em>As fotografias ficam.</em></h2><p>Cada fase da vida carrega histórias que merecem ser lembradas. Meu propósito é transformar esses momentos em imagens que você vai querer guardar para sempre.</p></section>
       <section id="experiencias" className="experiences content-width"><div className="section-heading"><div><span className="eyebrow">Para cada capítulo da sua vida</span><h2>Experiências fotográficas</h2></div><p>Diferentes momentos.<br />O mesmo cuidado em eternizar.</p></div><div className="experience-grid">{experiences.map(item => <a className="experience-item" key={item.name} href="#portfolio" onClick={event => { event.preventDefault(); setFilter(item.name); document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' }); }}><div className="experience-photo">{item.placeholder ? <div className="gallery-placeholder" role="img" aria-label={item.placeholder}>{item.placeholder}</div> : <img src={item.image} alt={`Fotografia de ${item.name.toLowerCase()} por Natália Silva`} loading="lazy" />}</div><div className="experience-caption"><h3>{item.name}</h3><ArrowUpRight aria-hidden="true" /></div></a>)}</div></section>
-      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><h2>Memórias que <em>permanecem.</em></h2></div><Button variant="text" asChild><a href="#experiencias">Voltar às experiências</a></Button></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => { setFilter(item); if (item === 'Todos') setShowAllPhotographs(false); }}>{item}</Button>)}</div>{visible.length ? <><div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''} ${showAllPhotographs && filter === 'Todos' ? 'expanded' : ''}`}>{columns.map((column, index) => <div className="gallery-column" key={index}>{column.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.id}><div className="gallery-photo"><div className="gallery-placeholder" role="img" aria-label={photo.label} style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>{photo.label}</div></div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div>)}</div>{filter === 'Todos' && !showAllPhotographs && <Button variant="text" onClick={() => setShowAllPhotographs(true)}>Ver todas as fotos</Button>}</> : <div className="empty-gallery"><h3>{filter} em Nova Lima</h3><p>Converse com a Natália para conhecer as fotografias e os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
+      <section className="portfolio" id="portfolio"><div className="content-width"><div className="section-heading"><div><h2>Memórias que <em>permanecem.</em></h2></div><Button variant="text" asChild><a href="#experiencias">Voltar às experiências</a></Button></div><div className="filters" role="group" aria-label="Filtrar portfólio">{filters.map(item => <Button variant="filter" key={item} aria-pressed={filter === item} onClick={() => { setFilter(item); if (item === 'Todos') setShowAllPhotographs(false); }}>{item}</Button>)}</div>{galleryPhotographs.length ? <><div className={`editorial-grid ${filter !== 'Todos' ? 'filtered' : ''} ${showAllPhotographs && filter === 'Todos' ? 'expanded' : ''}`}>{columns.map((column, index) => <div className="gallery-column" key={index}>{column.map(photo => <figure className={`gallery-item ${photo.shape}`} key={photo.id} role="button" tabIndex={0} onClick={() => openPhotograph(photo)} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPhotograph(photo); } }}><div className="gallery-photo"><div className="gallery-placeholder" role="img" aria-label={photo.label} style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>{photo.label}</div></div><figcaption className="gallery-caption"><span>{photo.label}</span><span>{photo.category}</span></figcaption></figure>)}</div>)}</div>{filter === 'Todos' && !showAllPhotographs && <Button variant="text" onClick={() => setShowAllPhotographs(true)}>Ver todas as fotos</Button>}</> : <div className="empty-gallery"><h3>{filter} em Nova Lima</h3><p>Converse com a Natália para conhecer as fotografias e os detalhes deste ensaio.</p><Contact label="Conhecer os ensaios" /></div>}</div></section>
       <section id="natalia" className="about content-width"><div className="about-photo"><img src={photos.natalia} alt="Natália Silva, fotógrafa e proprietária do Studio Natália Silva Fotografia" loading="lazy" width="3072" height="4096" /></div><div className="about-copy"><span className="eyebrow">A fotógrafa · Nova Lima, MG</span><h2>Natália Silva<br /><em>Um olhar para a sua história.</em></h2><p>À frente do Studio Natália Silva Fotografia, em Nova Lima, Natália é especialista em eternizar momentos — da espera por um bebê aos encontros em família e às celebrações da vida.</p><div className="about-stat"><strong>Mais de 15 mil</strong><span>Histórias eternizadas ao longo de sua trajetória.</span></div><Contact label="Conversar sobre meu ensaio" /></div></section>
       <section className="studio-experience"><span className="eyebrow">Studio Natália Silva Fotografia</span><h2>Mais do que fotografar.<br /><em>Eternizar.</em></h2><p>Um espaço pensado para que cada ensaio seja vivido com leveza, carinho e atenção aos detalhes.</p></section>
       {/* Depoimentos: inserir aqui somente avaliações reais fornecidas pela cliente. */}
@@ -72,5 +101,41 @@ function Index() {
     </main>
     <footer><div className="footer-top"><a className="wordmark" href="#inicio"><span>Natália Silva</span><small>Studio de fotografia</small></a><div className="footer-info"><span>Studio Natália Silva Fotografia</span><span>Nova Lima - MG</span><a href={instagram} target="_blank" rel="noopener noreferrer">@studionataliasilva.fotografia</a><a href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp: +55 31 99145-8058</a></div></div><div className="footer-bottom"><span>© 2026 Studio Natália Silva Fotografia</span><span>Momentos passam. As fotografias ficam.</span></div></footer>
     <div className="floating-contact"><Button variant="floating" size="icon" asChild><a href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Natália pelo WhatsApp" title="Falar com a Natália pelo WhatsApp"><MessageCircle aria-hidden="true" /></a></Button></div>
+    <Dialog open={Boolean(selectedPhotograph)} onOpenChange={open => { if (!open) closePhotograph(); }}>
+      <DialogContent className="max-w-[92vw] border-border bg-background p-4 sm:max-w-[900px]">
+        <DialogTitle className="sr-only">{selectedPhotograph?.label}</DialogTitle>
+        <DialogDescription className="sr-only">Visualização ampliada da fotografia</DialogDescription>
+        {selectedPhotograph && <div className="flex flex-col items-center gap-4">
+          <div
+            className="max-h-[75vh] max-w-full overflow-auto overscroll-contain"
+            onWheel={event => {
+              event.preventDefault();
+              setLightboxZoom(value => Math.min(3, Math.max(1, value - event.deltaY * 0.001)));
+            }}
+            onTouchStart={event => {
+              if (event.touches.length === 2) pinchStartDistance.current = distanceBetweenTouches(event.touches);
+            }}
+            onTouchMove={event => {
+              if (event.touches.length === 2 && pinchStartDistance.current) {
+                const distance = distanceBetweenTouches(event.touches);
+                if (distance > 0) {
+                  setLightboxZoom(value => Math.min(3, Math.max(1, value * (distance / pinchStartDistance.current!))));
+                  pinchStartDistance.current = distance;
+                }
+              }
+            }}
+            onTouchEnd={() => { pinchStartDistance.current = null; }}
+          >
+            <div className="gallery-placeholder origin-center transition-transform" role="img" aria-label={selectedPhotograph.label} style={{ aspectRatio: `${selectedPhotograph.width} / ${selectedPhotograph.height}`, width: 'min(78vw, 780px)', transform: `scale(${lightboxZoom})` }}>
+              {selectedPhotograph.label}
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" aria-label="Reduzir zoom" onClick={() => setLightboxZoom(value => Math.max(1, value - 0.25))}><ZoomOut aria-hidden="true" /></Button>
+            <Button variant="ghost" size="icon" aria-label="Aumentar zoom" onClick={() => setLightboxZoom(value => Math.min(3, value + 0.25))}><ZoomIn aria-hidden="true" /></Button>
+          </div>
+        </div>}
+      </DialogContent>
+    </Dialog>
   </>;
 }
