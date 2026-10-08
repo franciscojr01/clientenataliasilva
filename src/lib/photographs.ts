@@ -6,7 +6,7 @@ export const photos = {
   events: `${portfolio}/client/eventos-1.webp`,
   maternityPortrait: `${portfolio}/client/gestante-2.webp`,
   maternityGroup: `${portfolio}/client/gestante-1.webp`,
-  studio: `${portfolio}/19-studio-natalia.webp`,
+  studio: `${portfolio}/client/natalia-studio.webp`,
 };
 
 export const whatsapp = 'https://wa.me/5531991458058?text=Ol%C3%A1%2C%20Nat%C3%A1lia!%20Gostaria%20de%20conhecer%20seus%20ensaios.';
