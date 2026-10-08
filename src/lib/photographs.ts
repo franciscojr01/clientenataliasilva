@@ -14,10 +14,45 @@ export const whatsapp = 'https://wa.me/5531991458058?text=Ol%C3%A1%2C%20Nat%C3%A
 export const instagram = 'https://www.instagram.com/studionataliasilva.fotografia/';
 
 export const photographs = [
-  { src: photos.maternity, category: 'Gestante', label: 'A espera de um novo capítulo', shape: 'tall', width: 1440, height: 1920 },
-  { src: photos.maternityGroup, category: 'Gestante', label: 'A alegria de viver essa espera juntas', shape: 'wide', width: 1440, height: 960 },
-  { src: photos.children, category: 'Família', label: 'Pequenos momentos, grandes memórias', shape: 'tall', width: 1440, height: 1800 },
-  { src: photos.smash, category: 'Smash', label: 'Um primeiro ano cheio de descobertas', shape: 'tall', width: 657, height: 880 },
-  { src: photos.maternityPortrait, category: 'Gestante', label: 'A beleza de cada fase da espera', shape: 'tall', width: 3072, height: 4096 },
-  { src: photos.feminineEditorial, category: 'Feminino', label: 'A beleza em cada fase da vida', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'gestante-1', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'gestante-2', category: 'Gestante', label: 'Foto — Gestante', shape: 'wide', width: 1440, height: 960 },
+  { id: 'gestante-3', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'gestante-4', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'gestante-5', category: 'Gestante', label: 'Foto — Gestante', shape: 'wide', width: 1440, height: 960 },
+  { id: 'gestante-6', category: 'Gestante', label: 'Foto — Gestante', shape: 'tall', width: 1440, height: 1800 },
+
+  { id: 'newborn-1', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'newborn-2', category: 'Newborn', label: 'Foto — Newborn', shape: 'wide', width: 1440, height: 960 },
+  { id: 'newborn-3', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'newborn-4', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'newborn-5', category: 'Newborn', label: 'Foto — Newborn', shape: 'wide', width: 1440, height: 960 },
+  { id: 'newborn-6', category: 'Newborn', label: 'Foto — Newborn', shape: 'tall', width: 1440, height: 1800 },
+
+  { id: 'familia-1', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'familia-2', category: 'Família', label: 'Foto — Família', shape: 'wide', width: 1440, height: 960 },
+  { id: 'familia-3', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'familia-4', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'familia-5', category: 'Família', label: 'Foto — Família', shape: 'wide', width: 1440, height: 960 },
+  { id: 'familia-6', category: 'Família', label: 'Foto — Família', shape: 'tall', width: 1440, height: 1800 },
+
+  { id: 'feminino-1', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'feminino-2', category: 'Feminino', label: 'Foto — Feminino', shape: 'wide', width: 1440, height: 960 },
+  { id: 'feminino-3', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'feminino-4', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'feminino-5', category: 'Feminino', label: 'Foto — Feminino', shape: 'wide', width: 1440, height: 960 },
+  { id: 'feminino-6', category: 'Feminino', label: 'Foto — Feminino', shape: 'tall', width: 1440, height: 1800 },
+
+  { id: 'smash-1', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'smash-2', category: 'Smash', label: 'Foto — Smash', shape: 'wide', width: 1440, height: 960 },
+  { id: 'smash-3', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'smash-4', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'smash-5', category: 'Smash', label: 'Foto — Smash', shape: 'wide', width: 1440, height: 960 },
+  { id: 'smash-6', category: 'Smash', label: 'Foto — Smash', shape: 'tall', width: 1440, height: 1800 },
+
+  { id: 'eventos-1', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'eventos-2', category: 'Eventos', label: 'Foto — Eventos', shape: 'wide', width: 1440, height: 960 },
+  { id: 'eventos-3', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1800 },
+  { id: 'eventos-4', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1920 },
+  { id: 'eventos-5', category: 'Eventos', label: 'Foto — Eventos', shape: 'wide', width: 1440, height: 960 },
+  { id: 'eventos-6', category: 'Eventos', label: 'Foto — Eventos', shape: 'tall', width: 1440, height: 1800 },
 ];
