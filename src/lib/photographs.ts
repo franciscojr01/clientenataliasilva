@@ -3,6 +3,7 @@ const portfolio = '/images/portfolio';
 export const photos = {
   maternity: `${portfolio}/client/gestante-5.webp`,
   newborn: `${portfolio}/client/newborn-1.webp`,
+  smash: `${portfolio}/client/smash-1.webp`,
   events: `${portfolio}/client/eventos-1.webp`,
   maternityPortrait: `${portfolio}/client/gestante-2.webp`,
   maternityGroup: `${portfolio}/client/gestante-1.webp`,
@@ -39,4 +40,9 @@ export const photographs: Photograph[] = [
   { id: 'newborn-4', category: 'Newborn', label: 'Newborn', shape: 'tall', width: 1170, height: 1560, src: `${portfolio}/client/newborn-4.webp`, alt: 'Retrato próximo dos pais com a bebê recém-nascida' },
   { id: 'newborn-5', category: 'Newborn', label: 'Newborn', shape: 'square', width: 1170, height: 1170, src: `${portfolio}/client/newborn-5.webp`, alt: 'Recém-nascido em cenário azul com bichinhos de pelúcia' },
   { id: 'newborn-6', category: 'Newborn', label: 'Newborn', shape: 'square', width: 1170, height: 1170, src: `${portfolio}/client/newborn-6.webp`, alt: 'Close de recém-nascido em manta azul com pelúcias' },
+  { id: 'smash-1', category: 'Smash', label: 'Smash the cake', shape: 'tall', width: 1440, height: 1800, src: `${portfolio}/client/smash-1.webp`, alt: 'Bebê em ensaio smash the cake com cenário amarelo' },
+  { id: 'smash-2', category: 'Smash', label: 'Smash the cake', shape: 'tall', width: 1350, height: 1800, src: `${portfolio}/client/smash-2.webp`, alt: 'Bebê com bolo e balões prateados em ensaio smash the cake' },
+  { id: 'smash-3', category: 'Smash', label: 'Smash the cake', shape: 'tall', width: 1350, height: 1800, src: `${portfolio}/client/smash-3.webp`, alt: 'Bebê sentado com bolo e balões prateados' },
+  { id: 'smash-4', category: 'Smash', label: 'Smash the cake', shape: 'tall', width: 1385, height: 1800, src: `${portfolio}/client/smash-4.webp`, alt: 'Bebê em ensaio smash the cake com roupa rosa' },
+  { id: 'smash-5', category: 'Smash', label: 'Smash the cake', shape: 'tall', width: 1350, height: 1800, src: `${portfolio}/client/smash-5.webp`, alt: 'Bebê com bolo em cenário colorido de aniversário' },
 ];
